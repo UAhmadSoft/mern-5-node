@@ -1,18 +1,33 @@
+const User = require('../database/models/user');
+
 // const createUser = async (req, res) => {
 exports.createUser = async (req, res) => {
-	const { name, age } = req.body;
-	const userData = new User({
-		name,
-		age,
-	});
-
 	try {
-		const savedData = await userData.save();
-		res.status(200).send(savedData);
+		const user = await User.create({
+			...req.body,
+		});
+		// const user =  User.create({
+		// 	...req.body
+		// }).then(user => )
+		res.status(200).send(user);
 	} catch (err) {
 		res.status(400).send({ message: err.message });
 	}
 };
+// exports.createUser = async (req, res) => {
+// 	const { name, age } = req.body;
+// 	const userData = new User({
+// 		name,
+// 		age,
+// 	});
+
+// 	try {
+// 		const savedData = await userData.save();
+// 		res.status(200).send(savedData);
+// 	} catch (err) {
+// 		res.status(400).send({ message: err.message });
+// 	}
+// };
 
 exports.getAllUsers = async (req, res) => {
 	try {
